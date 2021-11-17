@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TestEx</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <header>
+      <%= link_to "Rails Blog", root_path %>
+      <nav>
+        <ul>
+          <li><%= link_to "Home", root_path %></li>
+          <% if user_signed_in? %>
+            <li><%= link_to "Users", '#' %></li>
+            <li>
+              <a href="#">Account</a>
+              <ul>
+                <li><%= link_to "Profile", '#' %></li>
+                <li><%= link_to "Settings", '#' %></li>
+                <li>
+                  <%= link_to "Log out", destroy_user_session_path , method: :delete %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to "Log in", user_session_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
+    <% flash.each do |message_type, message| %>
+      <%= content_tag(:div, message) %>
+    <% end %>    
+    <%= yield %>
+  </body>
+</html>
