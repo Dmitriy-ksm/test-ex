@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
     
     #before_filter :find_item, only: [:show, :edit, :update, :destroy]
     before_action  :find_item, only: [:show, :edit, :update, :destroy, :buy]
-    before_action :check_if_admin, only: [:edit, :update, :new, :create, :destroy]
+    before_action  :check_if_admin, only: [:edit, :update, :new, :create, :destroy]
 
     def index
         @items = Item.all
@@ -68,7 +68,7 @@ class ItemsController < ApplicationController
         #Order logic here
         p params
         p @item
-        p params[:count]
+        p params[:item][:count]
     end
 
     private
@@ -77,10 +77,7 @@ class ItemsController < ApplicationController
         end
 
         def find_item
-            @item = Item.find(params[:id])
-        end
-
-        def check_if_admin
-            render plain: "Please, log in as admin to make that!", status: 403 unless current_user.role == User.roles["admin"]
+            @item = Item.where(id: params[:id]).first
+            render_404 unless @item
         end
 end
