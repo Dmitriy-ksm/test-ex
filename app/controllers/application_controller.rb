@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     end
 
     def check_if_admin
-        render_403 unless !current_user.nil? && current_user.role == User.roles["admin"]
+        render_403 unless !current_user.nil? && User.roles[current_user.role] == User.roles["admin"]
     end
 
 end
