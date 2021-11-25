@@ -5,7 +5,13 @@ class ItemsController < ApplicationController
     before_action  :check_if_admin, only: [:edit, :update, :new, :create, :destroy]
 
     def index
-        @items = Item.all
+        @is_admin = if_admin_boolean
+        p @is_admin
+        @descOrAsc = params[:price_sort] == "1" ? "DESC" : "ASC";
+        @items = Item
+        @items = @items.where("price >= ?", params[:price_from])    if params[:price_from]
+        @items = @items.where("price <= ?", params[:price_to])      if params[:price_to]
+        @items = @items.order("price #{@descOrAsc}", "price") 
     end
 
     # /items/1 GET

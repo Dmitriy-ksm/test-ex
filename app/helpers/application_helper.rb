@@ -6,4 +6,5 @@ module ApplicationHelper
             
         s.html_safe
     end
+
 end

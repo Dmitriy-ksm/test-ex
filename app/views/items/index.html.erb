@@ -1,5 +1,6 @@
 <div>
     <h1>Items</h1>
+    <%= link_to "Добавить товар", new_item_path unless !@is_admin %>
     <table>
       <tr>
         <th>Name</th>
@@ -19,7 +20,8 @@
               <%= f.number_field :count, min: 1, step: 1, :value => 1  %>
               <%= f.submit "Купить" %>
             <% end %>
-           <%= link_to "Удалить", item, method: :delete, data: {confirm: "Вы уверенны что хотите удалить этот товар?"} %>
+            <%= link_to "Редактировать", edit_item_path(item) unless !@is_admin %>
+           <%= link_to "Удалить", item, method: :delete, data: {confirm: "Вы уверенны что хотите удалить этот товар?"} unless !@is_admin %>
           </td>
         </tr>
       <% end %>
