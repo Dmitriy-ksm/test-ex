@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-    before_action :check_login
+    before_action :check_if_login
     before_action :check_orders
 
     def index
@@ -14,10 +14,6 @@ class OrdersController < ApplicationController
     end
 
     private
-
-        def check_login
-            render_403 unless is_login
-        end
 
         def check_if_order_empty(order)
             order.orders_descriptions.nil? || order.orders_descriptions.empty?

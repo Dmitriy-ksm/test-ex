@@ -15,6 +15,11 @@ class ApplicationController < ActionController::Base
         render file: "public/404.html", status: 404
     end
 
+
+    def check_if_login
+        render_403 unless is_login
+    end
+
     def check_if_admin
         render_403 unless if_admin_boolean
     end

@@ -30,7 +30,7 @@
       </nav>
     </header>
     <div id="admin-pannel">
-        Only for admin...
+        <%= link_to "Users", "/admin/user" %>
     </div>
     <% flash.each do |message_type, message| %>
       <%= content_tag(:div, message) %>
