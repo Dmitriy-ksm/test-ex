@@ -1,0 +1,23 @@
+<div>
+    <p>
+        Order number: <%= order.id %>
+    </p>
+    <span>
+        Items
+    </span>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        <% order.orders_descriptions.each do |position| %>
+            <tr>
+                <td><%= position.item.name %></td>
+                <td><%= position.item.price %></td>
+                <td><%= position.quantity %></td>
+            </tr>
+        <% end %>
+    </table>
+    <span>Amount: <%= order.amount %></span>
+</div>

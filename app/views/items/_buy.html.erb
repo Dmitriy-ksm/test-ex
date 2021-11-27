@@ -1,0 +1,4 @@
+<%= form_with method: :post, model: [:buy, item] do |f| %>
+    <%= f.number_field :count, min: 1, step: 1, :value => 1  %>
+    <%= f.submit "Купить" %>
+  <% end %>

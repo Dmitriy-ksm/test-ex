@@ -1,0 +1,17 @@
+<div>
+    <h1>Orders</h1>
+    <div>
+        <h2>Current order</h2>
+        <%= current_order(@cur_order, "You dont have any items in your current order") %>
+        <%= form_with method: :post, url: "orders/accept" do |f| %>
+            <%= f.submit "Оплатить" %>
+        <% end %>
+    </div>
+
+    <div>
+        <h2>Order history</h2>
+        <% order_history(@order_history).each do |order_history| %>
+            <%= order_history.html_safe %>
+        <% end %>
+    </div>
+</div>

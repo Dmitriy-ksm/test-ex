@@ -16,12 +16,9 @@
             <%= item.price %>
           </td>
           <td>
-            <%= form_with method: :post, model: [:buy, item] do |f| %>
-              <%= f.number_field :count, min: 1, step: 1, :value => 1  %>
-              <%= f.submit "Купить" %>
-            <% end %>
+            <%= render partial: "buy", locals: { item: item} if @is_login %>
             <%= link_to "Редактировать", edit_item_path(item) unless !@is_admin %>
-           <%= link_to "Удалить", item, method: :delete, data: {confirm: "Вы уверенны что хотите удалить этот товар?"} unless !@is_admin %>
+            <%= link_to "Удалить", item, method: :delete, data: {confirm: "Вы уверенны что хотите удалить этот товар?"} unless !@is_admin %>
           </td>
         </tr>
       <% end %>

@@ -3,10 +3,11 @@ class ItemsController < ApplicationController
     #before_filter :find_item, only: [:show, :edit, :update, :destroy]
     before_action  :find_item, only: [:show, :edit, :update, :destroy, :buy]
     before_action  :check_if_admin, only: [:edit, :update, :new, :create, :destroy]
+    before_action :is_login, only: [:buy]
 
     def index
         @is_admin = if_admin_boolean
-        p @is_admin
+        @is_login = is_login
         @descOrAsc = params[:price_sort] == "1" ? "DESC" : "ASC";
         @items = Item
         @items = @items.where("price >= ?", params[:price_from])    if params[:price_from]
@@ -72,9 +73,24 @@ class ItemsController < ApplicationController
 
     def buy
         #Order logic here
-        p params
-        p @item
-        p params[:item][:count]
+        #Получает текущий заказ пользователя
+        @lastOrder = current_user.orders.last
+        #Логика если первый заказ
+        @lastOrder = Order.create if @lastOrder.nil?
+        current_user.orders << @lastOrder if @lastOrder.new_record?
+        
+        count = params[:item][:count].to_f
+        itemId = params[:id]
+        render_404 if itemId.nil?
+        item = Item.find(itemId);
+        render_404 if item.nil?
+        price = item.price 
+        cur_amount = price.nil? || count.nil? ? 0 : price*count
+        position = OrdersDescription.create(:item_id => itemId, :quantity => count, :order_id =>  @lastOrder.id)
+        @lastOrder.amount = @lastOrder.amount.nil? ? cur_amount : cur_amount + @lastOrder.amount
+        @lastOrder.save
+        
+        redirect_to action: "index"
     end
 
     private

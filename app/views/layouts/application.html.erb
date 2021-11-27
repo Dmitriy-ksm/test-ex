@@ -16,18 +16,13 @@
       <nav>
         <ul>
           <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to "Items", "/items" %></li>
+          <li><%= link_to "Orders", "/orders" %></li>
           <% if user_signed_in? %>
-            <li><%= link_to "Users", '#' %></li>
-            <li>
-              <a href="#">Account</a>
-              <ul>
-                <li><%= link_to "Profile", '#' %></li>
-                <li><%= link_to "Settings", '#' %></li>
+                <li><%= link_to "Profile", edit_user_registration_path %></li>
                 <li>
                   <%= link_to "Log out", destroy_user_session_path , method: :delete %>
                 </li>
-              </ul>
-            </li>
           <% else %>
             <li><%= link_to "Log in", user_session_path %></li>
           <% end %>
