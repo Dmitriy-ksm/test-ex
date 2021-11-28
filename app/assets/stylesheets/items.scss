@@ -1,3 +1,45 @@
 // Place all the styles related to the items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.item-edit {
+    margin:0;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    gap:2em;
+    .item-edit-name,
+    .item-edit-price,
+    .item-edit-description {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+}
+input[type="submit"]{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+    .item-table
+    {
+        width: 100%;
+        .item-table-utils {
+            display: flex;
+            justify-content: space-around;
+            padding: 1em 0 1em 0;
+            .item-table-submit-form{
+                display: inline-block;
+            }
+        }
+        table, th, td {
+            border: 1px solid black;
+          }
+        tbody
+        {
+            text-align: center;
+        }
+    }

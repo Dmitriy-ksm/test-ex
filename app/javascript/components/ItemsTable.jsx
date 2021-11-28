@@ -21,36 +21,36 @@ class ItemsTable extends React.Component{
   render () {
     const { items } = this.props;
     return (
-      <table>
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-        {items && items.map((item,index)=>
-        (
-          <tr key={index}>
-            <td>
-              <a href={`/items/${item.id}`}>{item.name}</a>
-            </td>
-            <td>
-              {item.price}
-            </td>
-            <td>
-              <form action={`/items/${item.id}/buy`} acceptCharset="UTF-8" method="post" onSubmit={this.handleSubmit}>
-                <input min="1" step="1" defaultValue="1" type="number" name="item[count]" />
-                <input type="submit" name="commit" defaultValue="Купить" data-disable-with="Купить" />
-              </form>
-              <a href={`/items/${item.id}/edit`}>Редактировать</a>
-              <a data-confirm="Вы уверены что хотите удалить этот товар?" rel="nofollow" data-method="delete" href={`/items/${item.id}`}>Удалить</a>
-            </td>
+      <table className="item-table">
+        <thead>
+          <tr>
+            <th className="item-table-header-name">Name</th>
+            <th className="item-table-header-price">Price</th>
+            <th className="item-table-header-utils"></th>
           </tr>
-        )
-        )}
-      </tbody>
+        </thead>
+        <tbody>
+          {items && items.map((item,index)=>
+          (
+            <tr key={index}>
+              <td className="item-table-name">
+                <a href={`/items/${item.id}`}>{item.name}</a>
+              </td>
+              <td className="item-table-price">
+                {item.price}
+              </td>
+              <td className="item-table-utils">
+                <form className="item-table-buy-form" action={`/items/${item.id}/buy`} acceptCharset="UTF-8" method="post" onSubmit={this.handleSubmit}>
+                  <input className="item-table-count-form" min="1" step="1" defaultValue="1" type="number" name="item[count]" />
+                  <input className="item-table-submit-form" type="submit" name="commit" value="Купить" data-disable-with="Обрабатывается" />
+                </form>
+                <a className="item-table-link-to-edit" href={`/items/${item.id}/edit`}>Редактировать</a>
+                <a className="item-table-link-to-delete" data-confirm="Вы уверены что хотите удалить этот товар?" rel="nofollow" data-method="delete" href={`/items/${item.id}`}>Удалить</a>
+              </td>
+            </tr>
+          )
+          )}
+        </tbody>
       </table>
     )
 }

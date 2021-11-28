@@ -1,3 +1,30 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.order-container {
+    display:flex;
+    flex-direction: column;
+    .order-amount {
+        align-items: flex-end;
+        display: flex;
+        flex-flow: column;
+        width: 80%;
+    }
+    .order-header,
+    .position-header
+    {
+        align-self: center;
+        margin-bottom: 1em;
+    }
+    .position-table
+    {
+        table, th, td {
+            border: 1px solid black;
+          }
+        tbody
+        {
+            text-align: center;
+        }
+    }
+}
