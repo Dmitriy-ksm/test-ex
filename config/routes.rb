@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'items/create', action: :createGet, controller: 'items'
   get 'orders', action: :index, controller: 'orders'
   post 'orders/accept', action: :accept, controller: 'orders'
+  delete '/orders/remove', action: :remove_position, controller: 'orders'
   get 'admin/user', action: :index, controller: 'admin_over_user'
   #get 'admin/user/:id', action: :edit, controller 'admin_over_user'
   get 'admin/user/edit/:id', to: 'admin_over_user#edit', as: 'admin_user_edit'

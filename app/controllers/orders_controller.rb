@@ -13,6 +13,21 @@ class OrdersController < ApplicationController
         redirect_to action: "index"
     end
 
+    def remove_position
+        @cur_order = @orders.last
+
+        order_descr = @cur_order.orders_descriptions.where(id: params[:orders_descriptions]).first
+        render_404 if order_descr.nil?
+        unless order_descr.nil?
+            amount_to_subtract = (order_descr.item.price.nil? ? 0 : order_descr.item.price)  * order_descr.quantity
+            order_descr.destroy
+            @cur_order.amount = @cur_order.amount - amount_to_subtract
+            @cur_order.save
+            redirect_to action: "index"
+        end
+    end
+
+
     private
 
         def check_if_order_empty(order)

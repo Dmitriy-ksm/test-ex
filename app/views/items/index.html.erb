@@ -1,26 +1,5 @@
 <div>
     <h1>Items</h1>
     <%= link_to "Добавить товар", new_item_path unless !@is_admin %>
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th></th>
-      </tr>
-      <% @items.each do |item| %>
-        <tr>
-          <td>
-            <%= link_to item.name, item_path(item) %>
-          </td>
-          <td>
-            <%= item.price %>
-          </td>
-          <td>
-            <%= render partial: "buy", locals: { item: item} if @is_login %>
-            <%= link_to "Редактировать", edit_item_path(item) unless !@is_admin %>
-            <%= link_to "Удалить", item, method: :delete, data: {confirm: "Вы уверенны что хотите удалить этот товар?"} unless !@is_admin %>
-          </td>
-        </tr>
-      <% end %>
-  </table>
+    <%= react_component "ItemsTable", {items: @items}  %>
 </div>
