@@ -18,7 +18,7 @@ module OrdersHelper
         is_empty_orders = orders.nil? || orders.empty?
         results = []
         if(is_empty_orders)
-            return "You do not have an order history, make your first purchase and here you can find out its details"
+            return ["You do not have an order history, make your first purchase and here you can find out its details"]
         else 
             orders.each do |order| 
                 results << current_order(order, "Empty order", false).html_safe

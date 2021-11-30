@@ -14,6 +14,13 @@
  *= require_self
  */
 body{
-    margin:0;
+    margin:0 0 1em 0;
     padding:2em 2em 0 2em;
+}
+
+.registration-submit {
+    input {
+        display:inline;
+        margin: 1em;
+    }
 }

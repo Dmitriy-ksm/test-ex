@@ -4,7 +4,7 @@
         <h2>Current order</h2>
         <%= current_order(@cur_order, "You dont have any items in your current order", true) %>
         <% unless check_if_order_empty(@cur_order) %>
-            <%= form_with method: :post, url: "orders/accept" do |f| %>
+            <%= form_with url: orders_accept_path do |f| %>
                 <%= f.submit "Оплатить" %>
             <% end %>
         <% end %>
@@ -12,8 +12,9 @@
 
     <div>
         <h2>Order history</h2>
-        <% order_history(@order_history).each do |order_history| %>
-            <%= order_history.html_safe %>
-        <% end %>
+        
+            <% order_history(@order_history).reverse_each do |order_history| %>
+                <%= order_history.html_safe %>
+            <% end %>
     </div>
 </div>

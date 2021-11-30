@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
     layout :layout_check
 
+    before_action :set_cache_headers
 
     def render_403
         render file: "public/403.html", status: 403
@@ -34,6 +35,12 @@ class ApplicationController < ActionController::Base
         end
 
     private 
+    
+        def set_cache_headers
+            response.headers["Cache-Control"] = "no-cache, no-store"
+            response.headers["Pragma"] = "no-cache"
+            response.headers["Expires"] = "Mon, 01 Jan 1990 00:00:00 GMT"
+        end
 
         def is_login 
             !current_user.nil?

@@ -35,7 +35,9 @@ class OrdersController < ApplicationController
         end
 
         def check_orders
-            @orders = current_user.orders.includes(:orders_descriptions, {orders_descriptions: [:item]})
+            @orders = current_user.orders.includes({orders_descriptions: [:item]})
+            #equal
+            #@orders = current_user.orders.includes(:orders_descriptions, {orders_descriptions: [:item]})
             render file: "#{Rails.root}/public/no_order.html"   if (@orders.nil? || @orders.empty?) 
         end
 end
