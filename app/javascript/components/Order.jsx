@@ -27,7 +27,7 @@ class Order extends React.Component{
               {order.positions && order.positions.map((position) =>
                   (
                   <tr key={position.id}>
-                      <td className="position-table-name">{position.name}</td>
+                      <td className="position-table-name">{position.name == null ? "Deleted item "+position.id : position.name}</td>
                       {/* <td className="position-table-price">{position.price}</td> */}
                       <td className="position-table-quantity">{position.quantity}</td>
                       {is_cur_order && 

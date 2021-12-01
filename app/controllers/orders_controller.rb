@@ -5,22 +5,24 @@ class OrdersController < ApplicationController
     def index
         @cur_order = @orders.last
         @order_history = @orders[0..-2]
-        orders_descriptions = @cur_order.orders_descriptions.all
-        unless orders_descriptions.nil? || orders_descriptions.empty?
-            amount = 0;
-            orders_descriptions.each do |position|
-                price = position.item.price;
-                count = position.quantity;
-                cur_amount = price.nil? || count.nil? ? 0 : price*count
-                amount += cur_amount
-            end
-        end 
-        @cur_order.amount = amount
-        @cur_order.save
+        recalculate_order(@cur_order)
+        # orders_descriptions = @cur_order.orders_descriptions.all
+        # unless orders_descriptions.nil? || orders_descriptions.empty?
+        #     amount = 0;
+        #     orders_descriptions.each do |position|
+        #         price = position.item.price;
+        #         count = position.quantity;
+        #         cur_amount = price.nil? || count.nil? ? 0 : price*count
+        #         amount += cur_amount
+        #     end
+        # end 
+        # @cur_order.amount = amount
+        # @cur_order.save
     end
 
     def accept 
         @cur_order = @orders.last
+        recalculate_order(@cur_order)
         current_user.orders << Order.create unless check_if_order_empty(@cur_order)
         redirect_to action: "index"
     end
@@ -41,6 +43,33 @@ class OrdersController < ApplicationController
 
 
     private
+
+        def recalculate_order(order)
+            deleted_items = [];
+            positions = order.orders_descriptions.all
+            unless positions.nil? || positions.empty?
+                amount = 0;
+                positions.each do |position|
+                    if position.item.nil?
+                        deleted_items << position.id
+                    else
+                        price =  position.item.price;
+                        count = position.quantity;
+                        cur_amount = price.nil? || count.nil? ? 0 : price*count
+                        amount += cur_amount
+                    end
+                end
+            end 
+            
+            deleted_items.each do |id|
+                pos = OrdersDescription.find(id)
+                order.orders_descriptions.delete(pos)
+            end
+            
+            order.amount = amount
+            order.save
+        end
+
 
         def check_if_order_empty(order)
             order.orders_descriptions.nil? || order.orders_descriptions.empty?
