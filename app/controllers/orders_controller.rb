@@ -3,8 +3,8 @@ class OrdersController < ApplicationController
     before_action :check_orders
 
     def index
-        @order_history = @orders[0..-2]
         @cur_order = @orders.last
+        @order_history = @orders[0..-2]
         orders_descriptions = @cur_order.orders_descriptions.all
         unless orders_descriptions.nil? || orders_descriptions.empty?
             amount = 0;
@@ -27,14 +27,14 @@ class OrdersController < ApplicationController
 
     def remove_position
         @cur_order = @orders.last
-
+        p @cur_order.orders_descriptions.last
         order_descr = @cur_order.orders_descriptions.where(id: params[:orders_descriptions]).first
         render_404 if order_descr.nil?
         unless order_descr.nil?
             amount_to_subtract = (order_descr.item.price.nil? ? 0 : order_descr.item.price)  * order_descr.quantity
             order_descr.destroy
-            @cur_order.amount = @cur_order.amount - amount_to_subtract
-            @cur_order.save
+            # @cur_order.amount = @cur_order.amount - amount_to_subtract
+            #@cur_order.save
             redirect_to action: "index"
         end
     end

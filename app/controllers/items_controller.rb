@@ -87,8 +87,11 @@ class ItemsController < ApplicationController
         price = item.price 
         cur_amount = price.nil? || count.nil? ? 0 : price*count
         position = OrdersDescription.create(:item_id => itemId, :quantity => count, :order_id =>  @lastOrder.id)
-        @lastOrder.amount = @lastOrder.amount.nil? ? cur_amount : cur_amount + @lastOrder.amount
-        @lastOrder.save
+        position.save
+        p position
+        #p  @lastOrder
+        #@lastOrder.amount = @lastOrder.amount.nil? ? cur_amount : cur_amount + @lastOrder.amount
+        #@lastOrder.save
         
         redirect_to action: "index"
     end
