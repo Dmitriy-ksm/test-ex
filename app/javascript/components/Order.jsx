@@ -16,7 +16,7 @@ class Order extends React.Component{
           <thead>
               <tr>
                   <th className="position-table-header-name">Name</th>
-                  <th className="position-table-header-price">Price</th>
+                  {/* <th className="position-table-header-price">Price</th> */}
                   <th className="position-table-header-quantity">Quantity</th>
                   {is_cur_order && 
                     <th className="position-table-header-utils"></th>
@@ -28,7 +28,7 @@ class Order extends React.Component{
                   (
                   <tr key={position.id}>
                       <td className="position-table-name">{position.name}</td>
-                      <td className="position-table-price">{position.price}</td>
+                      {/* <td className="position-table-price">{position.price}</td> */}
                       <td className="position-table-quantity">{position.quantity}</td>
                       {is_cur_order && 
                         <td className="position-table-utils">

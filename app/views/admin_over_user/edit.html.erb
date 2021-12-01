@@ -1,15 +1,16 @@
 <h1>Edit User</h1>
 
 <%= form_with url: admin_user_update_path(@user), scope: "user" do |f| %>
-
-    <p>
-        <label for="first_name">Имя:</label>
-        <%= f.text_field :first_name %>
-    </p>
-    <p>
-        <label for="last_name">Фамилия:</label>
-        <%= f.text_field :last_name %>
-    </p>
+    <div class="align-center">
+        <p>
+            <label for="first_name">Имя:</label>
+            <%= f.text_field :first_name %>
+        </p>
+        <p>
+            <label for="last_name">Фамилия:</label>
+            <%= f.text_field :last_name %>
+        </p>
+    </div>
 
     <p>
         <%= f.submit "Сохранить изменения" %>

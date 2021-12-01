@@ -5,6 +5,18 @@ class OrdersController < ApplicationController
     def index
         @order_history = @orders[0..-2]
         @cur_order = @orders.last
+        orders_descriptions = @cur_order.orders_descriptions.all
+        unless orders_descriptions.nil? || orders_descriptions.empty?
+            amount = 0;
+            orders_descriptions.each do |position|
+                price = position.item.price;
+                count = position.quantity;
+                cur_amount = price.nil? || count.nil? ? 0 : price*count
+                amount += cur_amount
+            end
+        end 
+        @cur_order.amount = amount
+        @cur_order.save
     end
 
     def accept 
